@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<script type="text/jsx">
+    var Badge = React.createClass({
+        render: function () {
+            return <button
+                    onClick={this.props.whenClicked}
+                    className="btn btn-primary"
+                    type="button">
+                    {this.props.title}
+                    <span className="badge">
+                        {this.props.number}
+                    </span>
+            </button>
+        }
+    });
+    var Layout = React.createClass({
+        getInitialState: function(){
+            return {
+                number: this.props.number
+            }
+        },
+        handleClick: function(item) {
+            this.setState({
+                number: this.state.number + 1
+            });
+        },
+        render: function () {
+            return <div className="layout">
+                <Badge
+                        title={this.props.title}
+                        number={this.state.number}
+                        whenClicked={this.handleClick}
+                />
+                <Badge
+                        title={this.props.title}
+                        number={this.state.number}
+                        whenClicked={this.handleClick}
+                />
+                <Badge
+                        title={this.props.title}
+                        number={this.state.number}
+                        whenClicked={this.handleClick}
+                />
+            </div>
+        }
+    });
+
+    var options = {
+        title: 'Show Courses',
+        number: 120
+
+    };
+
+
+    var element = React.createElement(Layout, options);
+    React.render(element, document.body);
+</script>
+</body>
+</html> 

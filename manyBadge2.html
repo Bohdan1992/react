@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<script type="text/jsx">
+    var Badge = React.createClass({
+        render: function () {
+            return <button
+                    onClick={this.props.whenClicked}
+                    className="btn btn-primary"
+                    type="button">
+                {this.props.title}
+                <span className="badge">
+                        {this.props.number}
+                    </span>
+            </button>
+        }
+    });
+    var Layout = React.createClass({
+        getInitialState: function(){
+            return {
+                numbers: this.props.numbers
+            }
+        },
+        handleClick: function(item) {
+            this.setState({
+                numbers: this.state.numbers.map(function (item) {
+                    return item + 1
+                }) 
+            });
+        },
+        render: function () {
+            var list = this.state.numbers.map(function(item){
+                return <Badge
+                        title={this.props.title}
+                        number={item}
+                        whenClicked={this.handleClick}
+                />
+            }.bind(this))
+
+            return <div className="layout">
+                {list}
+            </div>
+        }
+    });
+
+    var options = {
+        title: 'Show Courses',
+        numbers: [ // List of items
+            120,
+            456,
+            48,
+            56,
+        ]
+
+    };
+
+
+    var element = React.createElement(Layout, options);
+    React.render(element, document.body);
+</script>
+</body>
+</html>
